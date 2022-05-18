@@ -15,87 +15,202 @@
 </head>
 
 <body>
-    <div id="app" class="container m-5 text-center">
-        <nav class="navbar navbar-expand-sm bg-dark navbar-dark fixed-top mb-5">
-            <a class="navbar-brand" href="#">Logo</a>
-            <ul class="navbar-nav">
-                <li class="nav-item">
-                    <a class="nav-link" href="javascript:void(0)">Link</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="javascript:void(0)">Link</a>
-                </li>
-            </ul>
-        </nav>
-        <header class="row m-5">
-            <div class="col-4"></div>
-            <div class="col-4 mt-5">
-                <div class="d-flex justify-content-center">
-                    <img src="public/assets/imgs/profileco.jpg" alt="Logo profileco">
-                    <div>
-                        <h1>Profile.co</h1>
-                        <h4>Tu mejor p&eacuterfil</h4>
-                    </div>
-                </div>
-            </div>
-            <div class="col-3"></div>
-        </header>
-        <div class="box m-5">
-            <div class="box-header">
-                <div class="d-flex justify-content-center">
-                    <form action="#" class="form">
-                        <div class="input-group mb-3">
-                            <input type="text" class="form-control" placeholder="Usuarios" v-model="stmt"
-                                @keyup.enter="fetchAll">
-                            <button class="btn btn-dark" type="button" @click="fetchAll">Buscar</button>
-                        </div>
-                    </form>
-                </div>
-            </div>
-            <div v-if="todos">
-                <div class="d-flex flex-wrap m-5">
-                    <div v-for="(user, index) in users" :key="index" class="card shadow-lg 
-                    p-3 m-3 bg-body rounded-4 border-info  border-4 border-bottom" style="width:30%">
-                        <img class="card-img-top rounded-4" :src="user.avatar_url">
-                        <div class="card-body">
-                            <h4 class="card-title">{{user.login}}</h4>
-                            <p class="card-text">{{user.id}}</p>
-                            <a @click="getUser(user.login)" class="btn btn-primary">Chismosear</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div v-if="!todos">
-                <div class="d-flex justify-content-start">
-                    <button class="btn btn-sm btn-primary" @click="todos='false'">Volver</button>
-                    <hr>
-                </div>
-                <hr>
-                <div class="card mb-3">
-                    <div class="row g-0">
-                        <div class="col-md-4">
-                            <img :src="userSelected.avatar_url" class="img-fluid rounded-start" alt="...">
-                        </div>
-                        <div class="col-md-8">
-                            <div class="card-body">
-                                <h5 class="card-title"><a :href="userSelected.html_url">{{userSelected.login}}</a>
-                                    {{userSelected.id}}</h5>
-                                <pre class="alert alert-info text-left">
 
-                                    {{userSelected}}
-                            
-                               </pre>
-                                <p class="card-text"><small class="text-muted"></small></p>
+    <div class="container-fluid">
+        <div class="row flex-nowrap">
+            <div class="col-auto col-md-3 col-xl-2 px-sm-2 px-0 bg-dark">
+                <div class="d-flex flex-column align-items-center align-items-sm-start px-3 pt-2 text-white min-vh-100">
+                    <a href="/"
+                        class="d-flex align-items-center pb-3 mb-md-0 me-md-auto text-white text-decoration-none">
+                        <span class="fs-5 d-none d-sm-inline">Menu</span>
+                    </a>
+                    <ul class="nav nav-pills flex-column mb-sm-auto mb-0 align-items-center align-items-sm-start"
+                        id="menu">
+                        <li class="nav-item">
+                            <a href="#" class="nav-link align-middle px-0">
+                                <i class="fs-4 bi-house"></i> <span class="ms-1 d-none d-sm-inline">Home</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#submenu1" data-bs-toggle="collapse" class="nav-link px-0 align-middle">
+                                <i class="fs-4 bi-speedometer2"></i> <span
+                                    class="ms-1 d-none d-sm-inline">Dashboard</span> </a>
+                            <ul class="collapse show nav flex-column ms-1" id="submenu1" data-bs-parent="#menu">
+                                <li class="w-100">
+                                    <a href="#" class="nav-link px-0"> <span class="d-none d-sm-inline">Item</span> 1
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#" class="nav-link px-0"> <span class="d-none d-sm-inline">Item</span> 2
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li>
+                            <a href="#" class="nav-link px-0 align-middle">
+                                <i class="fs-4 bi-table"></i> <span class="ms-1 d-none d-sm-inline">Orders</span></a>
+                        </li>
+                        <li>
+                            <a href="#submenu2" data-bs-toggle="collapse" class="nav-link px-0 align-middle ">
+                                <i class="fs-4 bi-bootstrap"></i> <span
+                                    class="ms-1 d-none d-sm-inline">Bootstrap</span></a>
+                            <ul class="collapse nav flex-column ms-1" id="submenu2" data-bs-parent="#menu">
+                                <li class="w-100">
+                                    <a href="#" class="nav-link px-0"> <span class="d-none d-sm-inline">Item</span>
+                                        1</a>
+                                </li>
+                                <li>
+                                    <a href="#" class="nav-link px-0"> <span class="d-none d-sm-inline">Item</span>
+                                        2</a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li>
+                            <a href="#submenu3" data-bs-toggle="collapse" class="nav-link px-0 align-middle">
+                                <i class="fs-4 bi-grid"></i> <span class="ms-1 d-none d-sm-inline">Products</span> </a>
+                            <ul class="collapse nav flex-column ms-1" id="submenu3" data-bs-parent="#menu">
+                                <li class="w-100">
+                                    <a href="#" class="nav-link px-0"> <span class="d-none d-sm-inline">Product</span>
+                                        1</a>
+                                </li>
+                                <li>
+                                    <a href="#" class="nav-link px-0"> <span class="d-none d-sm-inline">Product</span>
+                                        2</a>
+                                </li>
+                                <li>
+                                    <a href="#" class="nav-link px-0"> <span class="d-none d-sm-inline">Product</span>
+                                        3</a>
+                                </li>
+                                <li>
+                                    <a href="#" class="nav-link px-0"> <span class="d-none d-sm-inline">Product</span>
+                                        4</a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li>
+                            <a href="#" class="nav-link px-0 align-middle">
+                                <i class="fs-4 bi-people"></i> <span class="ms-1 d-none d-sm-inline">Customers</span>
+                            </a>
+                        </li>
+                    </ul>
+                    <hr>
+                    <div class="dropdown pb-4">
+                        <a href="#" class="d-flex align-items-center text-white text-decoration-none dropdown-toggle"
+                            id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
+                            <img src="public/assets/imgs/profileco_logo.png" alt="hugenerd" width="30" height="30"
+                                class="rounded-circle">
+                            <span class="d-none d-sm-inline mx-1">Opciones</span>
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-dark text-small shadow">
+                            <li><a class="dropdown-item" href="#">opcion1</a></li>
+                            <li><a class="dropdown-item" href="#">opcion2</a></li>
+                            <li><a class="dropdown-item" href="#">opcion3</a></li>
+                            <li>
+                                <hr class="dropdown-divider">
+                            </li>
+                            <li><a class="dropdown-item" href="#">Sign out</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="col py-3">
+                <div id="app" class="container m-5 text-center">
+                    <nav class="navbar navbar-expand-sm bg-dark navbar-dark fixed-top mb-5">
+                        <a class="navbar-brand " href="#"><img class="mx-3" src="public/assets/imgs/profileco_logo.png"
+                                alt="" style="width:2em"></a>
+                        <ul class="navbar-nav">
+                            <li class="nav-item">
+                                <a class="nav-link" href="javascript:void(0)">Para ti</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="javascript:void(0)">Virales</a>
+                            </li>
+                        </ul>
+                    </nav>
+                    <header class="row m-5">
+                        <div class="col-4"></div>
+                        <div class="col-4 mt-5">
+                            <div class="d-flex justify-content-center">
+                                <img src="public/assets/imgs/profileco_logo.png" alt="Logo profileco">
+                                <div>
+                                    <h1>Profile.co</h1>
+                                    <h4>Tu mejor p&eacuterfil</h4>
+                                </div>
                             </div>
                         </div>
+                        <div class="col-3"></div>
+                    </header>
+                    <div class="box m-5">
+                        <div class="box-header">
+                            <div class="d-flex justify-content-center">
+                                <form action="#" class="form">
+                                    <div class="input-group mb-3">
+                                        <input type="text" class="form-control" placeholder="Usuarios" v-model="stmt"
+                                            @keyup.enter="fetchAll">
+                                        <button class="btn btn-dark" type="button" @click="fetchAll">
+                                            <img src="https://img.icons8.com/ios/30/ffffff/search--v1.png" />
+                                            Buscar</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                        <div v-if="todos">
+                            <div class="d-flex flex-wrap m-5">
+                                <div v-for="(user, index) in users" :key="index" class="card shadow-lg 
+                                p-3 m-3 bg-body rounded-4 border-info  border-4 border-bottom" style="width:25%">
+                                    <img class="card-img-top rounded-4" :src="user.avatar_url">
+                                    <div class="card-body">
+                                        <h4 class="card-title">{{user.login}}</h4>
+                                        <p class="card-text">{{user.id}}</p>
+                                        <a @click="getUser(user.login)" class="btn btn-primary">
+                                            <img src="https://img.icons8.com/ios-filled/20/ffffff/eyebrow.png" />
+                                            Chismosear</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div v-if="!todos">
+                            <div class="d-flex justify-content-start">
+                                <button class="btn btn-sm btn-primary" @click="todos='false'">
+                                    <img src="https://img.icons8.com/ios-filled/30/ffffff/double-left.png" />
+                                    Volver</button>
+                                <hr>
+                            </div>
+                            <hr>
+                            <div class="card mb-3">
+                                <div class="row g-0">
+                                    <div class="col-md-4">
+                                        <img :src="userSelected.avatar_url" class="img-fluid rounded-start" alt="...">
+                                    </div>
+                                    <div class="col-md-8">
+                                        <div class="card-body">
+                                            <h5 class="card-title"><a
+                                                    :href="userSelected.html_url">{{userSelected.login}}</a>
+                                                {{userSelected.id}}</h5>
+
+                                            <h1>Segidores <span
+                                                    class="badge bg-primary">{{userSelected.followers}}</span></h1>
+                                            <h1>Siguiendo <span
+                                                    class="badge bg-primary">{{userSelected.following}}</span></h1>
+                                            <h1>Repositorios <span
+                                                    class="badge bg-primary">{{userSelected.public_repos}}</span></h1>
+                                            <h1>Colaboraciones <span
+                                                    class="badge bg-primary">{{userSelected.public_gists}}</span></h1>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="box-footer">
+
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="box-footer">
-
             </div>
         </div>
     </div>
+
+
 </body>
 
 
@@ -103,6 +218,7 @@
     integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2"
     crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
 <script src="public/js/app.js"></script>
 
 </html>
