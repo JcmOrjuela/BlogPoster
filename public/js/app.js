@@ -5,10 +5,11 @@ const app = new Vue({
         users: [],
         stmt: '',
         todos: true,
-        userSelected: [],
+        userSelected: []
     },
     methods: {
         fetchAll() {
+            this.todos = true
             if (this.stmt.length < 4) {
                 alert('La búsqueda está restringida a mínimo 4 carácteres')
             } else if (/teleperformance/ig.test(this.stmt)) {
@@ -51,5 +52,6 @@ const app = new Vue({
                     alert(error.message)
                 });
         }
+
     },
 })
